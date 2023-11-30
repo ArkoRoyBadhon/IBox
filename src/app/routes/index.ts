@@ -1,15 +1,7 @@
 import express from 'express'
+import { AuthController } from '../controllers/authController'
 const router = express.Router()
 
-// const moduleRoutes = [
-//     {
-//         path: "/",
-//         route: 
-//     }
-// ]
-
-// moduleRoutes.forEach(route => {
-//   router.use(route.path, route.route)
-// })
+router.post("/signup", AuthController.createUser)
 
 export default router
