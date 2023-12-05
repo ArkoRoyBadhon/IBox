@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { IUser } from "../Interfaces/userInterfaces";
+import { IUser, UserModel } from "../Interfaces/userInterfaces";
 import config from "../../config";
 import bcrypt from "bcrypt";
 
@@ -9,7 +9,7 @@ const userRoles = {
   MODERATOR: "moderator",
 };
 
-const UserSchema = new Schema<IUser>(
+const UserSchema = new Schema<IUser, UserModel>(
   {
     name: {
       type: String,
@@ -30,6 +30,7 @@ const UserSchema = new Schema<IUser>(
     role: {
       type: String,
       enum: Object.values(userRoles),
+      default: userRoles.USER,
     },
     password: {
       type: String,
@@ -59,7 +60,7 @@ UserSchema.pre("save", async function (next) {
 UserSchema.statics.isUserExisted = async function (
   userId: string
 ): Promise<Pick<IUser, "_id" | "email" | "password"> | null> {
-  return User.findOne(
+  return await User.findOne(
     { _id: userId },
     { _id: 1, email: 1, password: 1, role: 1 }
   );
@@ -72,4 +73,4 @@ UserSchema.statics.isPasswordMatched = async function (
   return await bcrypt.compare(givenPassword, savedPassword);
 };
 
-export const User = model<IUser>("User", UserSchema);
+export const User = model<IUser, UserModel>("User", UserSchema);
