@@ -1,8 +1,13 @@
-import express from 'express'
-import { AuthController } from '../controllers/authController'
-const router = express.Router()
+import express from "express";
+import { AuthController } from "../controllers/authController";
+import { productConteroller } from "../controllers/productController";
+const router = express.Router();
 
-router.post("/signup", AuthController.createUser)
-router.post("/signin", AuthController.loginUser)
+router.post("/signup", AuthController.createUser);
+router.post("/signin", AuthController.loginUser);
 
-export default router
+// product creation
+router.post("/product/create", productConteroller.createProduct);
+router.get("/product/get-all", productConteroller.getProducts);
+
+export default router;
