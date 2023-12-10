@@ -10,5 +10,7 @@ router.post("/signin", AuthController.loginUser);
 router.post("/product/create", productConteroller.createProduct);
 router.get("/product/get-all", productConteroller.getProducts);
 router.get("/product/get/:productId", productConteroller.getSingleProduct);
+router.patch("/product/update/:productId", productConteroller.updateProduct);
+router.delete("/product/delete/:productId", productConteroller.deleteProduct);
 
 export default router;
