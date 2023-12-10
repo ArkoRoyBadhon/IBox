@@ -9,5 +9,6 @@ router.post("/signin", AuthController.loginUser);
 // product creation
 router.post("/product/create", productConteroller.createProduct);
 router.get("/product/get-all", productConteroller.getProducts);
+router.get("/product/get/:productId", productConteroller.getSingleProduct);
 
 export default router;

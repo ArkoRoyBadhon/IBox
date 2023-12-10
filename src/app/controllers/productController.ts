@@ -28,7 +28,23 @@ const getProducts = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getSingleProduct = catchAsync(async (req: Request, res: Response) => {
+  const id = req.params.productId;
+  
+  const result = await productService.getSingleProduct(id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Products are fetched successfully",
+    data: result,
+  });
+});
+
+
+
 export const productConteroller = {
   createProduct,
   getProducts,
+  getSingleProduct,
 };

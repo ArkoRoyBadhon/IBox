@@ -9,8 +9,14 @@ const createProduct = async (payload: IProduct): Promise<Partial<IProduct>> => {
   return result;
 };
 
-const getProducts = async (): Promise<Partial<IProduct[]>> => {
+const getProducts = async (): Promise<Partial<IProduct[] | null>> => {
   const result = await Product.find().populate("ownerId");
+
+  return result;
+};
+
+const getSingleProduct = async (id: string): Promise<IProduct | null> => {
+  const result = await Product.findById(id).populate("ownerId");
 
   return result;
 };
@@ -18,4 +24,5 @@ const getProducts = async (): Promise<Partial<IProduct[]>> => {
 export const productService = {
   createProduct,
   getProducts,
+  getSingleProduct,
 };
